@@ -1,39 +1,64 @@
-const { Recipe, TypeDiet} = require("../db.js");
+const { Recipe, Type} = require("../db.js");
 
-const agregarReceta = async (character) => {
+const createRecipe = async ( nombre, imagen, resumen, nivel, paso, tipo) => {
     
-    // try {
-    //     console.log("aca pasa 1")
-    //     const {name, title, summary, spoonacularScore, healthScore, analyzedInstructions, createdInDb, typeDiets} = character;
-    //     if(!title||!summary){
-    //         throw new Error ("Faltan datos para crear la Receta")
-    //     }
+    try {
+        const recetaExistente = await Recipe.findOne({
+            where: {
+              nombre: nombre,
+            }
+          });
+        if(recetaExistente){
+            return "La receta ya existe"
+        }
+        
+            let recipeCreated = await Pokemon.create({
+                nombre: nombre,
+                imagen: imagen,
+                vida: vida,
+                ataque: ataque,
+                defensa: defensa,
+                velocidad: velocidad,
+                altura: altura,
+                peso: peso,
+            })
 
-    //     let createRecipe = await Recipe.create({
-    //         // id,  
-    //          name,   
-    //          title,
-    //          summary,
-    //          spoonacularScore ,
-    //          healthScore,
-    //          analyzedInstructions,
-    //          typeDiets,
-    //          createdInDb
-    //     })
-    
-        
-    //     let dietTypeDb = await TypeDiet.findAll({ where:{ name:typeDiets } })
-        
-    //     createRecipe.typeDiets = dietTypeDb;      
-    //     console.log("aca pasa 2")
+            tipo.map(async(e) =>{
+                let result = await Type.findAll({
+                where: { nombre: e }
+                })
+                recipeCreated.addType(result)
+            });
+            //await Promise.all(promisesTypes);
+              
+            // const pokemonTypes = await Type.findAll({
+            //     where: { name: types }
+            //   })
+            
+            //   pokemonCreated.addType(pokemonTypes)
+            //   return res.send('Pokemon created successfuly')
+            // })
 
-    //     return "receta creada";
-        
-    // } catch (error) {
-    //     return {error: error.message};
-    // }
+            
+            let resultRecipe = await Recipe.findAll({
+                where:{ 
+                    nombre: nombre
+                 },
+                
+                include: [{
+                        model: Type,
+                        attributes: ['id', 'nombre']
+                    }]
+                });
+
+                
+                return resultRecipe
+            
+    } catch (error) {
+        return error;
+    }
 }
 
 module.exports = {
-   //agregarReceta
+    createRecipe
 };

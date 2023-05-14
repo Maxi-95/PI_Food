@@ -10,10 +10,25 @@ module.exports = (sequelize) => {
       allowNull: false,
       primaryKey : true
     },
-    title: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
-    
+    },
+    imagen:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    resumen:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    nivel:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pasos:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 };

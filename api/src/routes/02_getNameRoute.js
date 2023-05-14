@@ -5,8 +5,11 @@ const { getAallRecipes } = require("../controllers/01_getController.js")
 //const { Recipe, TypeDiet } = require("../db.js")
 //const {Sequelize} = require('sequelize');
 
-router.get("/", getAallRecipes);
+router.get("/nombre", async (req, res) => {
 
+    res.status(200).json({respuesta:"no se encontro un nombre"});
+    
+});
 
 
 

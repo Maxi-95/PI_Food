@@ -11,7 +11,8 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
- const getIdRecipes = require('./01_getRoute.js');
+ const todosRecipes = require('./00_getRecipes.js');
+ const getIdRecipes = require('./01_getIdRoute.js');
  const getNameRecipe = require('./02_getNameRoute.js');
  const postRecipe = require('./03_postRoute.js');
  const dietsRecipe = require('./04_getDietsRoute');
@@ -19,8 +20,9 @@ const router = Router();
 
 
 router.use('/recipes', getIdRecipes);
+router.use('/recipes', todosRecipes);
 router.use('/recipes', getNameRecipe);
-router.use('/recipe', postRecipe);
+router.use('/crear', postRecipe);
 router.use('/diets',dietsRecipe);
 
 
