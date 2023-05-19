@@ -1,15 +1,12 @@
 const {Router} = require("express");
 //const { getApiDiets } = require("../Controllers/DietController");
-const { diets } = require("../controllers/diets");
+//const { diets } = require("../controllers/diets");
 const { Type } = require("../db.js")
 const router = Router();
 
 router.get("/tipos", async(req,res)=>{
     try{
-       await Type.create(diets)
-
-       let ApiDiets = await Type.findAll()
-
+        let ApiDiets = await Type.findAll()
 
         res.status(200).send(ApiDiets);
     }

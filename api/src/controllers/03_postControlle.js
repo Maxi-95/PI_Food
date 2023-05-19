@@ -1,53 +1,45 @@
 const { Recipe, Type} = require("../db.js");
 
-const createRecipe = async ( nombre, imagen, resumen, nivel, paso, tipo) => {
+const createRecipe = async ( nombre, imagen, resumen, nivel, pasos, tipo) => {
     
     try {
         const recetaExistente = await Recipe.findOne({
             where: {
-              nombre: nombre,
+                nombre: nombre,
             }
-          });
+        });
         if(recetaExistente){
             return "La receta ya existe"
         }
         
-            let recipeCreated = await Pokemon.create({
+        //console.log(nombre, imagen, resumen, nivel, paso, tipo)
+
+            let recipeCreated = await Recipe.create({
                 nombre: nombre,
                 imagen: imagen,
-                vida: vida,
-                ataque: ataque,
-                defensa: defensa,
-                velocidad: velocidad,
-                altura: altura,
-                peso: peso,
+                resumen: resumen,
+                nivel: nivel,
+                pasos: pasos
             })
 
-            tipo.map(async(e) =>{
+           
                 let result = await Type.findAll({
-                where: { nombre: e }
+                    where: { nombre: tipo }
                 })
-                recipeCreated.addType(result)
-            });
-            //await Promise.all(promisesTypes);
-              
-            // const pokemonTypes = await Type.findAll({
-            //     where: { name: types }
-            //   })
-            
-            //   pokemonCreated.addType(pokemonTypes)
-            //   return res.send('Pokemon created successfuly')
-            // })
-
-            
-            let resultRecipe = await Recipe.findAll({
+                
+                await recipeCreated.addType(result)
+                //console.log(result);
+                //console.log(recipeCreated);
+           
+           
+            let resultRecipe = await Recipe.findOne({
                 where:{ 
                     nombre: nombre
                  },
                 
                 include: [{
                         model: Type,
-                        attributes: ['id', 'nombre']
+                        attributes: ['nombre']
                     }]
                 });
 
