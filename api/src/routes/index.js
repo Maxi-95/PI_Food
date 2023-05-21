@@ -20,7 +20,7 @@ const router = Router();
 
 
 router.use('/recipes', getIdRecipes);
-router.use('/recipes', todosRecipes);
+router.use('/recipe', todosRecipes);
 router.use('/recipes', getNameRecipe);
 router.use('/crear', postRecipe);
 router.use('/diets',dietsRecipe);
